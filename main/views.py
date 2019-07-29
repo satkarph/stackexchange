@@ -31,6 +31,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
     permission_classes = (NormalUserGetOnly,)
     serializer_class = QuestionSerializer
     http_method_names = ['get', 'post', 'put', 'head']
+    queryset = Question.objects.all()
 
     def perform_create(self, serializer):
         a = serializer.validated_data['question_text']
@@ -79,6 +80,7 @@ class AnswerViewSet(viewsets.ModelViewSet):
     permission_classes = (NormalUserGetOnly,)
     serializer_class = AnswerSerializer
     http_method_names = ['post', 'put', 'head','get']
+    queryset = Answer.objects.all()
 
     def perform_create(self, serializer):
         a=serializer.validated_data['answer_text']
