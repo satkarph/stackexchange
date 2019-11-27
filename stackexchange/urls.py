@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from main.views import QuestionViewSet,AnswerViewSet,CommentViewset,QvoteView,AvoteView,Talash,TagViewSet,TagApiView
+from main.views import QuestionViewSet,AnswerViewSet,CommentViewset,QvoteView,AvoteView,Talash,TagViewSet,TagApiView,UserAll
 router = routers.DefaultRouter()
 
 router.register(r'comment', CommentViewset, 'comment')
@@ -33,7 +33,8 @@ urlpatterns = [
     url(r'answervote', AvoteView.as_view()),
     # url(r'search', Search.as_view()),
     url(r'search', Talash.as_view()),
-    url(r'tagquestion',TagApiView.as_view())
+    url(r'tagquestion',TagApiView.as_view()),
+    url(r'userall',UserAll.as_view())
 
 
 ]

@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework import authentication,generics
 from rest_framework.response import Response
+from django.contrib.auth import authenticate, get_user_model
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from main.permissions import NormalUserGetOnly
@@ -302,4 +303,13 @@ class TagApiView(APIView):
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
         question = Question.objects.get(id=question_id)
         return Response(QuestionSerializer(question).data, status=status.HTTP_200_OK)
+
+class UserAll(APIView):
+    authentication_classes = (authentication.TokenAuthentication,)
+    def get(self, request, format=None):
+        user = self.request.user
+        queryset = get_user_model().objects.all().exclude(id=user.id)
+        userall = UserSerializer(queryset,many=True)
+        return Response(userall.data, status=status.HTTP_200_OK)
+
 
